@@ -1,0 +1,21 @@
+body {
+	margin: 0;
+	padding: 0;
+	background-color: aliceblue;
+	display: flex;
+	justify-content: center;
+	font-family: 'Trebuchet MS';
+}
+.app {
+	background-color: rgb(255, 255, 255);
+	box-shadow: rgba(0, 0, 0, 0.5) 0 6px 24px, rgba(0, 0, 0, 0.8) 0 0 0 1px;
+	/*border-radius: 10px;*/
+	padding: 100px;
+	width: 900px;
+	margin-top: 50px;
+	
+}
+.home {
+	width: 100%;
+}
+
