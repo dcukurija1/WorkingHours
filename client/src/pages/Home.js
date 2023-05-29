@@ -10,7 +10,8 @@ const Home = ({ user, hours }) => {
 	}
 	return (
 		<div className='home'>
-			<h1>{user.name}</h1>
+			<h1>Working hours</h1>
+			<h2>Welcome back {user.name}</h2>
 			<WorkingHoursTable hours={hours} />
 			<Button
 				color='primary'

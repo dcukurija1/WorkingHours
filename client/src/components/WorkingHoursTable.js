@@ -1,54 +1,37 @@
 import React, { useState } from 'react'
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, getGridDateOperators, getGridStringOperators } from "@mui/x-data-grid";
 import { TextField } from '@mui/material';
 import './table.css';
-const WorkingHoursTable = ({ hours }) => {
-	const columns = [
-		{ field: "date", headerName: "Date", width: 200 },
-		{ field: "duration", headerName: "Hours", width: 100 },
-		{ field: "report", headerName: "Report", width: 500 },
-	];
+import quantityOnlyOperators from "../utils/filter";
 
-	const [displayHours, setDisplayHours] = useState(hours);
-	const handleInputChange = (e) => {
-		const { id, value } = e.target;
-		if (id === "search") {
-			filter(value);
-		}
-	};
-	const filter = (searchQuery) => {
-		setDisplayHours(
-			hours
-				.filter(
-					(hour) =>
-						hour.id
-							.toString()
-							.toLowerCase()
-							.includes(searchQuery.toLowerCase()) ||
-						hour.date
-							.toString()
-							.toLowerCase()
-							.includes(searchQuery.toLowerCase()) ||
-						hour.length
-							.toString()
-							.toLowerCase()
-							.includes(searchQuery.toLowerCase()) ||
-						hour.report
-							.toString()
-							.toLowerCase()
-							.includes(searchQuery.toLowerCase())
-				)
-				.sort((a, b) => {
-					return a.date > b.date;
-				})
-		);
-	};
+const WorkingHoursTable = ({ hours }) => {
+	
+	const columns = [
+		{
+			field: "date",
+			headerName: "Date",
+			
+			width: 350,
+			filterOperators: quantityOnlyOperators,
+			renderCell: (params) => {
+				var options = {
+					weekday: "long",
+					year: "numeric",
+					month: "long",
+					day: "numeric",
+				};
+				return params.value.format('dddd ll');
+			}
+		},
+		{ field: "duration", headerName: "Hours", width: 100 },
+		{ field: "report", headerName: "Report", width: 500, sortable: false },
+	];
 
 	
 	return (
 		<DataGrid
 			columns={columns}
-			rows={displayHours}
+			rows={hours}
 			initialState={{
 				pagination: {
 					paginationModel: {
@@ -56,15 +39,10 @@ const WorkingHoursTable = ({ hours }) => {
 					},
 				},
 			}}
+			rowHeight={80}
 			pageSizeOptions={[5, 10, 15]}
 			disableRowSelectionOnClick
-		>
-			<TextField
-				placeholder="Search..."
-				onChange={handleInputChange}
-				id="search"
-			/>
-		</DataGrid>
+		/>
 	);
 }
 
