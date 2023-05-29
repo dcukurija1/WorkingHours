@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
-
+import dayjs from 'dayjs';
 const users = [
 	{
 		id: 1,
@@ -63,74 +63,75 @@ const users = [
 const hours = [
 	{
 		id: 1,
-		date: "2/8/2022",
+		date: dayjs("2/8/2022"),
 		duration: 4,
 		report:
 			"erat nulla tempus vivamus in felis eu sapien cursus vestibulum proin eu mi nulla ac",
 	},
 	{
 		id: 2,
-		date: "4/3/2023",
+		date: dayjs(new Date("4/3/2023")),
 		duration: 3,
 		report: "vivamus in felis eu sapien cursus vestibulum proin eu mi",
 	},
 	{
 		id: 3,
-		date: "12/31/2022",
+		date: dayjs(new Date("12/31/2022")),
 		duration: 2,
 		report:
 			"a pede posuere nonummy integer non velit donec diam neque vestibulum",
 	},
 	{
 		id: 4,
-		date: "11/1/2022",
+		date: dayjs(new Date("11/1/2022")),
 		duration: 6,
 		report: "at velit eu est congue elementum in hac habitasse platea dictumst",
 	},
 	{
 		id: 5,
-		date: "1/15/2023",
+		date: dayjs(new Date("1/15/2023")),
 		duration: 8,
 		report:
 			"neque duis bibendum morbi non quam nec dui luctus rutrum nulla tellus in",
 	},
 	{
 		id: 6,
-		date: "1/3/2022",
+		date: dayjs(new Date("1/3/2022")),
 		duration: 8,
 		report:
 			"erat vestibulum sed magna at nunc commodo placerat praesent blandit nam nulla integer pede",
 	},
 	{
 		id: 7,
-		date: "3/16/2022",
+		date: dayjs(new Date("3/16/2022")),
 		duration: 2,
 		report:
 			"ullamcorper purus sit amet nulla quisque arcu libero rutrum ac lobortis vel dapibus at diam",
 	},
 	{
 		id: 8,
-		date: "4/5/2023",
+		date: dayjs(new Date("4/5/2023")),
 		duration: 6,
 		report:
 			"malesuada in imperdiet et commodo vulputate justo in blandit ultrices enim lorem ipsum dolor",
 	},
 	{
 		id: 9,
-		date: "10/3/2022",
+		date: dayjs(new Date("10/3/2022")),
 		duration: 9,
 		report:
 			"ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae duis faucibus",
 	},
 	{
 		id: 10,
-		date: "3/19/2022",
+		date: dayjs(new Date("3/19/2022")),
 		duration: 8,
 		report:
 			"vel nisl duis ac nibh fusce lacus purus aliquet at feugiat non pretium",
 	},
 ];
 const App = () => {
+
 	return (
 		<div className='app'>
 			<Home user={users[0]} hours={hours} />
