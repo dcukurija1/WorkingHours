@@ -28,6 +28,6 @@ body {
 h2 {
 	color: #999;
 	display: flex;
-	justify-content: end;
+	justify-content: flex-end;
 }
 
