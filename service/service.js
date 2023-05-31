@@ -7,7 +7,9 @@ app.use(cors());
 app.use(express.json());
 
 const authRouter = require("./routes/authRoutes");
+const workingHoursRouter = require('./routes/workingHoursRoutes');
 app.use('/auth', authRouter);
+app.use('/hours', workingHoursRouter);
 
 app.listen(PORT, (error) =>{
     if(!error)
@@ -16,8 +18,3 @@ app.listen(PORT, (error) =>{
         console.log("Error occurred, server can't start", error);
     }
 );
-
-app.get("/",  (req, res) => {
-	console.log("was here");
-	res.send("was here");
-});

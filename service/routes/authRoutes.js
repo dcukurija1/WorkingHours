@@ -26,7 +26,7 @@ router.post(
 				[email, hashedPassword, name])
 			console.log("here3");
 			const token = jwt.sign({ userId, email }, "secret", { expiresIn: "1hr" });
-			res.json({ email, token });
+			res.json({userId, email, name, token });
 			console.log("here4");
 		} catch (err) {
 			console.log(err)
@@ -59,9 +59,9 @@ router.post(
 			const token = jwt.sign({ id, email }, "secret", { expiresIn: "1hr" });
 
 			if (success) {
-				res.json({ email: users.rows[0].email, token });
+				res.json({ id, email: users.rows[0].email, name: users.rows[0].name, token });
 			} else {
-				res.json({ detail: "Login failed" });
+				res.status(400).json({ detail: "Login failed" });
 			}
 		} catch (err) {
 			console.log(err)
