@@ -18,8 +18,6 @@ const App = () => {
 		try {
 			const res = await fetch('http://localhost:5000/hours/'+userId.toString())
 			const data = await res.json();
-			console.log(res);
-			console.log(data);
 			setHours(data);
 		} catch (err) {
 			setError(err)
@@ -33,7 +31,7 @@ const App = () => {
 		<div className='app'>
 			{!authToken && <Auth />}
 			{authToken && <Home user={{ userId, userEmail, userName }} hours={hours} />}
-			{error && <p>{error}</p>}
+			{/* {error && <p>{error.map(err => <p>{err}</p>)}</p>} */}
 		</div>
 	);
 }

@@ -90,15 +90,9 @@ const Auth = () => {
 						/>
 					)}
 					<Button
-						variant="contained"
-						sx={{
-							bgcolor: "rgb(50,50,50)",
-							m: "5%",
-							"&:hover": {
-								color: "black",
-								backgroundColor: "#ccc",
-							},
-						}}
+						variant="outlined"
+						sx={{ m: "5%" }}
+						color="primary"
 						type="submit"
 						className="submit-button"
 						onClick={(e) => handleSubmit(e, isLogIn ? "login" : "register")}
@@ -108,28 +102,20 @@ const Auth = () => {
 					{error && <p>{error}</p>}
 				</form>
 				<div className="auth-options">
-					<button
+					<Button
 						onClick={() => viewLogin(false)}
-						style={{
-							backgroundColor: !isLogIn
-								? "rgb(255, 255, 255)"
-								: "rgb(188, 188, 188)",
-							border: isLogIn ? "1px solid #ccc" : "none",
-						}}
+						color="primary"
+						variant={!isLogIn ? "outlined" : "contained"}
 					>
 						Sign Up
-					</button>
-					<button
+					</Button>
+					<Button
 						onClick={() => viewLogin(true)}
-						style={{
-							backgroundColor: isLogIn
-								? "rgb(255, 255, 255)"
-								: "rgb(188, 188, 188)",
-							border: !isLogIn ? "1px solid #ccc" : "none",
-						}}
+						variant={isLogIn ? "outlined" : "contained"}
+						color="primary"
 					>
 						Login
-					</button>
+					</Button>
 				</div>
 			</Box>
 		</Box>

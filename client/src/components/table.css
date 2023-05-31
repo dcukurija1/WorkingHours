@@ -1,7 +1,3 @@
-
-.MuiDataGrid-columnHeaders {
-	background-color: rgb(150,150,255);
-}
 .MuiDataGrid-panel {
 	min-width: 780px;
 	max-width: fit-content;
@@ -9,6 +5,7 @@
 .MuiDataGrid-cell {
 	white-space: break-spaces !important;
 }
+
 .MuiDataGrid-cellContent {
 	margin-top: 20px;
 	margin-bottom: 20px;

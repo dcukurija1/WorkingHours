@@ -40,12 +40,11 @@ function InputNumberInterval(props) {
 	};
 
 	const handleUpperFilterChange = (event) => {
-		const newUpperBound = dayjs(event.$d);
-	
+		const newUpperBound = event.$d;
 		updateFilterValue(filterValueState[0], newUpperBound);
 	};
 	const handleLowerFilterChange = (event) => {
-		const newLowerBound = dayjs(event.$d);
+		const newLowerBound = event.$d;
 		updateFilterValue(newLowerBound, filterValueState[1]);
 	};
 
@@ -56,8 +55,9 @@ function InputNumberInterval(props) {
 					display: "inline-flex",
 					flexDirection: "row",
 					alignItems: "end",
-					height: 48,
-					pl: "20px",
+					height: "fit-content",
+					pl: "25px",
+					width: "fit-content"
 				}}
 			>
 				<DatePicker
@@ -100,9 +100,9 @@ const quantityOnlyOperators = [
 
 			return ({ value }) => {
 				return (
-					value !== null &&
-					filterItem.value[0] <= value &&
-					value <= filterItem.value[1]
+					dayjs(value) !== null &&
+					filterItem.value[0] <= dayjs(value) &&
+					dayjs(value) <= filterItem.value[1]
 				);
 			};
 		},
