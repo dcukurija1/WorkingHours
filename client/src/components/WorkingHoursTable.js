@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { DataGrid, getGridDateOperators, getGridStringOperators } from "@mui/x-data-grid";
-import { TextField } from '@mui/material';
 import './table.css';
+import dayjs from 'dayjs'
 import quantityOnlyOperators from "../utils/filter";
 
 const WorkingHoursTable = ({ hours }) => {
@@ -14,13 +14,8 @@ const WorkingHoursTable = ({ hours }) => {
 			width: 350,
 			filterOperators: quantityOnlyOperators,
 			renderCell: (params) => {
-				var options = {
-					weekday: "long",
-					year: "numeric",
-					month: "long",
-					day: "numeric",
-				};
-				return params.value.format('dddd ll');
+				const date = params.value
+				return dayjs(date).format('dddd ll');
 			}
 		},
 		{ field: "duration", headerName: "Hours", width: 100 },

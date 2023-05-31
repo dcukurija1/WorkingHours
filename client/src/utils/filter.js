@@ -14,7 +14,6 @@ function InputNumberInterval(props) {
 	const [filterValueState, setFilterValueState] = React.useState(
 		item.value ?? ""
 	);
-	const [lowerBound, setLowerBound] = React.useState(new Date().getDate());
 
 	const [applying, setIsApplying] = React.useState(false);
 
