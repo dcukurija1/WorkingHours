@@ -1,6 +1,6 @@
 import {
 	Box, 
-	Button, TextField
+	Button, FormControl, Link, TextField, Typography
 } from "@mui/material";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
@@ -32,7 +32,12 @@ const Auth = () => {
 			if (endpoint === 'login') {
 				body = JSON.stringify({email, password})
 			} else {
-				body = JSON.stringify({"email": email, "password": password, "passwordConfirmation": confirmPassword,"name": fullName})
+				body = JSON.stringify({
+					"email": email,
+					"password": password,
+					"passwordConfirmation": confirmPassword,
+					"name": fullName
+				})
 			}
 			console.log(body);
 			const response = await fetch('http://localhost:5000/auth/' + endpoint,
@@ -62,47 +67,59 @@ const Auth = () => {
 	};
 	
 	return (
-		<Box>
-			<Box>
-				<form>
-					<h3>{isLogIn ? "Please log in" : "Please sign up!"}</h3>
+		<Box sx={{ display: "flex", justifyContent: "center", p: 10 }}>
+			<FormControl>
+				<Typography variant="h3">
+					{isLogIn ? "Please log in" : "Please sign up!"}
+				</Typography>
+				<TextField
+					sx={{ p: 2 }}
+					type="email"
+					placeholder="email"
+					onChange={(e) => setEmail(e.target.value)}
+				/>
+				<TextField
+					sx={{ p: 2 }}
+					type="password"
+					placeholder="password"
+					onChange={(e) => setPassword(e.target.value)}
+				/>
+				{!isLogIn && (
 					<TextField
-						type="email"
-						placeholder="email"
-						onChange={(e) => setEmail(e.target.value)}
-					/>
-					<TextField
+						sx={{ p: 2 }}
 						type="password"
-						placeholder="password"
-						onChange={(e) => setPassword(e.target.value)}
+						placeholder="confirm password"
+						onChange={(e) => setConfirmPassword(e.target.value)}
 					/>
-					{!isLogIn && (
-						<TextField
-							type="password"
-							placeholder="confirm password"
-							onChange={(e) => setConfirmPassword(e.target.value)}
-						/>
-					)}
-					{!isLogIn && (
-						<TextField
-							placeholder="full name"
-							onChange={(e) => setFullName(e.target.value)}
-						/>
-					)}
-					<Button
-						variant="outlined"
-						sx={{ m: "5%" }}
-						color="primary"
-						type="submit"
-						className="submit-button"
-						onClick={(e) => handleSubmit(e, isLogIn ? "login" : "register")}
-					>
-						{isLogIn ? "Login" : "Sign up"}
-					</Button>
-					{error && <p>{error}</p>}
-				</form>
+				)}
+				{!isLogIn && (
+					<TextField
+						sx={{ p: 2 }}
+						placeholder="full name"
+						onChange={(e) => setFullName(e.target.value)}
+					/>
+				)}
+				<Button
+					variant="outlined"
+					sx={{ m: "5%" }}
+					color="primary"
+					type="submit"
+					className="submit-button"
+					onClick={(e) => handleSubmit(e, isLogIn ? "login" : "register")}
+				>
+					{isLogIn ? "Login" : "Sign up"}
+				</Button>
 				<div className="auth-options">
-					<Button
+					<Link
+						variant="body1"
+						onClick={() => setIsLogin(!isLogIn)}
+						sx={{ p: 3}}
+					>
+						{isLogIn
+							? "Don't have and account? Sign up!"
+							: "Alredy have an account? Log in?"}
+					</Link>
+					{/* <Button
 						onClick={() => viewLogin(false)}
 						color="primary"
 						variant={!isLogIn ? "outlined" : "contained"}
@@ -115,9 +132,9 @@ const Auth = () => {
 						color="primary"
 					>
 						Login
-					</Button>
+					</Button> */}
 				</div>
-			</Box>
+			</FormControl>
 		</Box>
 	);
 };

@@ -2,7 +2,7 @@ import React from 'react'
 import WorkingHoursTable from '../components/WorkingHoursTable';
 import { useCookies } from 'react-cookie';
 import '../index.css'
-import { Button, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 const Home = ({ user, hours }) => {
 	const [cookies, setCookie, removeCookie] = useCookies(null);
 	const addNewEntry = () => {
@@ -15,40 +15,21 @@ const Home = ({ user, hours }) => {
 			window.location.reload();
 		};
 	return (
-		<div className="home">
+		<Box sx={{p:10, display: "flex", flexDirection: "column", justifyContent: "center"}}>
 			<Typography variant='h2' align='center'>Working hours</Typography>
-			<div className='user-div'>
+			<Box sx={{p:3, display: "flex", justifyContent: "space-between", alignItems: "center"}}>
 				<Typography variant='h4'>Welcome back {user.userName}</Typography>
 				<Button
-					sx={{
-						// bgcolor: "rgb(150,0,0,0.8)",
-						m: "5%",
-						// "&:hover": {
-						// 	color: "black",
-						// 	backgroundColor: "#ccc",
-						// },
-					}}
+					sx={{m: "5%"}}
 					color="secondary"
 					variant="outlined"
-					//size="small"
 					onClick={signOut}
 				>
 					Sign out
 				</Button>
-			</div>
+			</Box>
 			<WorkingHoursTable hours={hours} />
-			<Button
-				sx={{
-					m: "5%",
-				}}
-				color="primary"
-				variant="outlined"
-				//size="small"
-				onClick={addNewEntry}
-			>
-				Add New +
-			</Button>
-		</div>
+		</Box>
 	);
 }
 

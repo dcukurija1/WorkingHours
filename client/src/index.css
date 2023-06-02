@@ -1,64 +1,29 @@
 body {
 	min-width: 100%;
-
+	min-height: 100%;
 	background-color: aliceblue;
 	display: flex;
 	margin: auto;
 	justify-content:center;
 	font-family: 'Helvetica';
 }
-.root {
+#root {
 	min-width: 100%;
-	min-height: 90%;
+	min-height: 100%;
+	display: flex;
+	justify-content: center;
 }
 
 .app {
-	/* background-color: rgb(255, 255, 255); */
-	box-shadow: rgba(29, 119, 204, 0.5) 0 6px 54px;/*,rgba(0, 0, 0, 0.8) 0 0 0 1px; */
-	border-radius: 2%;
-	padding: 7%;
+	background-color: rgb(255, 255, 255);
+
 	margin-top: 6%;
 	margin-bottom: 6%;
-	min-width: 100%;
-	/* display: flex; */
-	justify-content: space-around;
-	transform: translate(-7%,0);
-}
+	min-width: 90%;
+	width: 90%;
+	
+} 
+
 .home {
 	min-width: 100%;
-}
-
-
-.MuiBox-root {
-  	width: 500px;
-  	overflow: hidden;
-  	/*box-shadow: rgba(0,0,0,0.05) 0 6px 24px, rgba(0,0,0,0.08) 0 0 0 1px;*/
-	/* border: 1px solid #ccc; */
-}
-
-.MuiBox-root form {
-  display: flex;
-  flex-direction: column;
-  height:fit-content;
-  padding: 20px;
-}
-.MuiInputBase-root {
-	margin: 5%;
-}
-
-.auth-options button {
-  width: 50%;
-  border: none;
-  padding: 10px;
-  color: rgb(60, 61, 66);
-}
-.action-buttons-container {
-	display: flex;
-	justify-content:space-between ;
-	height: 180px;
-}
-.user-div {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
 }

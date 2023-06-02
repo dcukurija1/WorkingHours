@@ -1,76 +1,56 @@
 import React, { useState } from 'react'
-import { DataGrid, getGridDateOperators, getGridStringOperators } from "@mui/x-data-grid";
-import './table.css';
-import dayjs from 'dayjs'
-import quantityOnlyOperators from "../utils/filter";
-import { border, borderColor } from '@mui/system';
-import { Box, Button } from '@mui/material';
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import HoursModal from "./modal/HoursModal"
+import moment from "moment";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const WorkingHoursTable = ({ hours }) => {
+	moment.locale("en-GB");
+	const localizer = momentLocalizer(moment);
+	const [isOpen, setIsOpen] = useState(false);
+	const [event, setEvent] = useState(null);
+	const [slot, setSlot] = useState({});
+	console.log("From calender: ");
 
-
-	const handleEdit = (e, value) => {
-		e.preventDefault()
-		console.log("edit: ", value);
-	}
-
-	const handleDelete = (e, value) => {
-		e.preventDefault()
-		console.log("delete: ", value)
-	}
-	const columns = [
-		{
-			field: "date",
-			headerName: "Date",
-			
-			width: 250,
-			filterOperators: quantityOnlyOperators,
-			renderCell: (params) => {
-				const date = params.value
-				return dayjs(date).format('dddd ll');
-			}
-		},
-		{
-			field: "duration", headerName: "Hours", width: 100, align: 'center',
-			renderCell: (params) => {
-				return params.value+'h'
-			}
-		},
-		{ field: "report", headerName: "Report", width: 500, sortable: false },
-		{	field:"none",
-			headerName: "Actions", width: 300, sortable: false, editable: false,
-			renderCell: (params) => {
-				return <Box sx={{
-					display: 'flex',
-					justifyContent: 'center',
-					border: 'none'
-				}}>
-					<Button
-						size="small"
-						variant='outlined'
-						color='primary'
-						sx={{ m: "5%" }}
-						onClick={(e)=>handleEdit(e,params.row)}
-					>
-						Edit
-					</Button>
-					<Button
-						size="small"
-						variant='outlined'
-						color='secondary'
-						sx={{ m: "5%" }}
-						onClick={(e) => handleDelete(e,params.row)}
-					>
-						Delete
-					</Button>
-				</Box>
-			}
-		},
-	];
-
-	
 	return (
-		<DataGrid
+		<div>	
+		<Calendar
+				views={["day", "work_week", "month"]}
+				selectable
+				localizer={localizer}
+				defaultDate={new Date()}
+				defaultView="month"
+				className="calendar"
+				events={hours}
+				style={{
+					height: "100vh",
+					width: "90%",
+					display: "flex",
+					justifyContent: "center",
+					opacity: isOpen ? 0.7 : 1
+				}}
+				onSelectEvent={(event) => {
+					setIsOpen(true)
+					setEvent(event);
+				}}
+				onSelectSlot={(slot) => {
+					setIsOpen(true)
+					setSlot(slot)
+				}}
+
+		/>
+			{slot && <HoursModal
+				isOpen={isOpen}
+				setIsOpen={setIsOpen}
+				event={event}
+				slot={slot}
+				start={slot.start}
+				end={slot.end}
+			/>}
+			
+		{/* {openPopupForm()} */}
+		</div>
+		/*<DataGrid
 			columns={columns}
 			rows={hours}
 			initialState={{
@@ -107,7 +87,7 @@ const WorkingHoursTable = ({ hours }) => {
 			getEstimatedRowHeight={() => 10}
 			pageSizeOptions={[5, 10, 15]}
 			disableRowSelectionOnClick
-		/>
+		/>*/
 	);
 }
 
