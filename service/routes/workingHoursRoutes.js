@@ -5,10 +5,10 @@ const dayjs = require('dayjs');
 router.get("/:id", async (req, res) => {
 	const { id } = req.params;
 	try {
-		const hours = await pool.query("SELECT * FROM hours WHERE user_is=$1", [id]);
+		const hours = await pool.query("SELECT * FROM hours_event WHERE user_id=$1", [id]);
 		res.json(hours.rows);
 	} catch (err) {
-		res.json("Message: ", err);
+		res.status(500).json({ "Message: ": err });
 	}
 });
 

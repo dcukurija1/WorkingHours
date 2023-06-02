@@ -2,7 +2,7 @@ import React from 'react'
 import WorkingHoursTable from '../components/WorkingHoursTable';
 import { useCookies } from 'react-cookie';
 import '../index.css'
-import { Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 const Home = ({ user, hours }) => {
 	const [cookies, setCookie, removeCookie] = useCookies(null);
 	const addNewEntry = () => {
@@ -15,43 +15,21 @@ const Home = ({ user, hours }) => {
 			window.location.reload();
 		};
 	return (
-		<div className="home">
-			<h1>Working hours</h1>
-			<h2>Welcome back {user.name}</h2>
-			<Button
-				sx={{
-					bgcolor: "rgb(150,0,0,0.8)",
-					m: "5%",
-					"&:hover": {
-						color: "black",
-						backgroundColor: "#ccc",
-					},
-				}}
-				color="primary"
-				variant="contained"
-				size="small"
-				onClick={signOut}
-			>
-				Sign out
-			</Button>
+		<Box sx={{p:10, display: "flex", flexDirection: "column", justifyContent: "center"}}>
+			<Typography variant='h2' align='center'>Working hours</Typography>
+			<Box sx={{p:3, display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+				<Typography variant='h4'>Welcome back {user.userName}</Typography>
+				<Button
+					sx={{m: "5%"}}
+					color="secondary"
+					variant="outlined"
+					onClick={signOut}
+				>
+					Sign out
+				</Button>
+			</Box>
 			<WorkingHoursTable hours={hours} />
-			<Button
-				sx={{
-					bgcolor: "rgb(50,50,50)",
-					m: "5%",
-					"&:hover": {
-						color: "black",
-						backgroundColor: "#ccc",
-					},
-				}}
-				color="primary"
-				variant="contained"
-				size="small"
-				onClick={addNewEntry}
-			>
-				+
-			</Button>
-		</div>
+		</Box>
 	);
 }
 

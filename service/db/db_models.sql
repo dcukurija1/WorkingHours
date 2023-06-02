@@ -1,9 +1,10 @@
-CREATE TABLE hours (
+CREATE TABLE hours_event (
 	id SERIAL PRIMARY KEY,
-	user_is INT,
-	date VARCHAR(300),
-	duration FLOAT,
-	report VARCHAR(500)
+	user_id INT,
+	title VARCHAR(50)
+	start TIMESTAMP,
+	end TIMESTAMP
+	report VARCHAR(3000)
 );
 
 CREATE TABLE users (
