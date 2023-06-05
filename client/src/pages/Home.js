@@ -1,26 +1,55 @@
-import React from 'react'
-import WorkingHoursTable from '../components/WorkingHoursTable';
+import React, { useState } from 'react'
+import WorkingHoursCalendar from '../components/calendar/WorkingHoursCalendar';
+import WorkingHoursTable from '../components/table/WorkingHoursTable';
 import { useCookies } from 'react-cookie';
 import '../index.css'
+import AddModal from '../components/table/modal/AddModal'
 import { Box, Button, Typography } from '@mui/material';
-const Home = ({ user, hours }) => {
+
+
+const Home = ({ user, hours, handleView, handleDelete, handleAdd }) => {
 	const [cookies, setCookie, removeCookie] = useCookies(null);
-	const addNewEntry = () => {
-		console.log('Adding a new entry');
-	}
-	 const signOut = () => {
+	const [tableView, setTableView] = useState(true);
+	const [isOpen, setIsOpen] = useState(false);
+	
+	const signOut = () => {
 			console.log("signout");
 			removeCookie("Email");
 			removeCookie("AuthToken");
 			window.location.reload();
-		};
+	};
 	return (
-		<Box sx={{p:10, display: "flex", flexDirection: "column", justifyContent: "center"}}>
-			<Typography variant='h2' align='center'>Working hours</Typography>
-			<Box sx={{p:3, display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-				<Typography variant='h4'>Welcome back {user.userName}</Typography>
+		<Box
+			sx={{
+				m: 10,
+				display: "flex",
+				flexDirection: "column",
+				justifyContent: "center",
+			}}
+		>
+			<Typography variant="h3" align="center">
+				Working hours
+			</Typography>
+			<Box
+				sx={{
+					width:"100%",
+					m:3,
+					display: "flex",
+					justifyContent: "space-between",
+					alignItems: "center",
+				}}
+			>
+				<Typography variant="h6">Welcome back {user.userName}</Typography>
 				<Button
-					sx={{m: "5%"}}
+					sx={{m:3}}
+					color="success"
+					variant="outlined"
+					onClick={() => { setTableView(!tableView) }}
+				>
+					{tableView ? "Calendar" : "Table"}
+				</Button>
+				<Button
+					sx={{m:3}}
 					color="secondary"
 					variant="outlined"
 					onClick={signOut}
@@ -28,7 +57,18 @@ const Home = ({ user, hours }) => {
 					Sign out
 				</Button>
 			</Box>
-			<WorkingHoursTable hours={hours} />
+			<Button
+				variant="outlined"
+				sx={{ ml: "83%", mb:3}}
+				onClick={() => {
+					setIsOpen(true)
+				}}
+			>
+				Add +
+			</Button>
+			{isOpen && <AddModal isOpen={isOpen} setIsOpen={setIsOpen} handleAdd={handleAdd} />}
+			{tableView && !isOpen && <WorkingHoursTable hours={hours} handleView={handleView} handleDelete={handleDelete} />}
+			{ !tableView && !isOpen && <WorkingHoursCalendar hours={hours} /> }
 		</Box>
 	);
 }

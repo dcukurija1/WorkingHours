@@ -1,32 +1,30 @@
 import {
-	Box, 
-	Button, FormControl, Link, TextField, Typography
+	Box, Button, FormControl, Link, TextField, Typography
 } from "@mui/material";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 
 
-const Auth = () => {
+const Auth = ({setError}) => {
 	const [cookies, setCookie, removeCookie] = useCookies(null);
 	const [isLogIn, setIsLogin] = useState(true);
 	const [email, setEmail] = useState(null);
 	const [password, setPassword] = useState(null);
 	const [confirmPassword, setConfirmPassword] = useState(null);
 	const [fullName, setFullName] = useState(null);
-	const [error, setError] = useState(null);
-
-	const viewLogin = (status) => {
-		setError(null);
-		setIsLogin(status);
-	};
 
 	const handleSubmit = async (e, endpoint) => {
 		e.preventDefault();
+		// empty field
+		if (!email || !password || (!isLogIn&&!confirmPassword) || (!isLogIn&&!fullName)) {
+			setError("All fields are required!")
+			return
+		}
+		// match passwords
 		if (!isLogIn && password !== confirmPassword) {
 			setError("Make sure passwords match!");
 			return;
 		}
-
 		try {
 			let body
 			if (endpoint === 'login') {
@@ -36,10 +34,9 @@ const Auth = () => {
 					"email": email,
 					"password": password,
 					"passwordConfirmation": confirmPassword,
-					"name": fullName
+					"name": fullName,
 				})
 			}
-			console.log(body);
 			const response = await fetch('http://localhost:5000/auth/' + endpoint,
 				{
 					method: "POST",
@@ -48,19 +45,23 @@ const Auth = () => {
 				}
 			);
 			const data = await response.json();
-
-			if (data.detail) {
-				setError(data.detail);
+			console.log(data)
+			if (data?.errors) {
+				isLogIn ? 
+					setError("Wrong email or password")
+				: setError("Email not valid")
+				return
 			} else {
-				setCookie("Email", data.email);
-				setCookie("AuthToken", data.token);
-				setCookie("UserId", data.id);
-				setCookie("UserName", data.name);
-
-				window.location.reload();
+				console.log({data})
+				setCookie("Email", data.email)
+				setCookie("AuthToken", data.token)
+				setCookie("UserId", data.id)
+				setCookie("UserName", data.name)
+				setError(null)
+				// window.location.reload();
 			}
 		} catch (err) {
-			setError(err);
+			setError(err.message);
 		}
 
 		
@@ -88,14 +89,14 @@ const Auth = () => {
 					<TextField
 						sx={{ p: 2 }}
 						type="password"
-						placeholder="confirm password"
+						placeholder="Confirm password"
 						onChange={(e) => setConfirmPassword(e.target.value)}
 					/>
 				)}
 				{!isLogIn && (
 					<TextField
 						sx={{ p: 2 }}
-						placeholder="full name"
+						placeholder="Full name"
 						onChange={(e) => setFullName(e.target.value)}
 					/>
 				)}

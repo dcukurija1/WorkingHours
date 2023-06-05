@@ -1,7 +1,10 @@
+html {
+	height: 100%;
+}
+
 body {
 	min-width: 100%;
 	min-height: 100%;
-	background-color: aliceblue;
 	display: flex;
 	margin: auto;
 	justify-content:center;
@@ -12,16 +15,20 @@ body {
 	min-height: 100%;
 	display: flex;
 	justify-content: center;
+	background-color: #84c0c6
 }
 
 .app {
-	background-color: rgb(255, 255, 255);
-
-	margin-top: 6%;
-	margin-bottom: 6%;
-	min-width: 90%;
-	width: 90%;
-	
+	/* background:  linear-gradient( rgb(214, 213, 229) 0%, rgba(200, 229, 220, 0.746) 35%, rgb(52, 53, 53) 100%); */
+	margin-top: 3%;
+	margin-bottom: 3%; 
+	min-width: 95%;
+	width: 95%;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	background-color: #f5f1ed;
 } 
 
 .home {

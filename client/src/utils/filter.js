@@ -69,7 +69,7 @@ function InputNumberInterval(props) {
 					onChange={handleLowerFilterChange}
 					type="number"
 					inputRef={focusElementRef}
-					sx={{ mr: 2, minWidth: 200 }}
+					sx={{ mr: 2, width: "200px" }}
 				/>
 				<DatePicker
 					name="upper-bound-input"
@@ -79,7 +79,7 @@ function InputNumberInterval(props) {
 					value={dayjs(new Date(filterValueState[1]))}
 					onChange={handleUpperFilterChange}
 					type="number"
-					sx={{ mr: 2, minWidth: 200 }}
+					sx={{ mr: 2, width: "200px" }}
 					InputProps={applying ? { endAdornment: <SyncIcon /> } : {}}
 				/>
 			</Box>

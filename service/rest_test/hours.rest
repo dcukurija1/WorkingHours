@@ -1,9 +1,9 @@
-POST http://localhost:5000/hours/14 HTTP/1.1
+POST http://localhost:5000/hours/15 HTTP/1.1
 Content-Type: application/json
 
 {
-	"start_time": "6/2/2023 09:00:00",
-	"end_time": "6/2/2023 17:00:00",
+	"date": "6/1/2023 09:00:00",
+	"duration": 7,
 	"report": "Lorem Ipsum is simply Lorem Ipsum is simplyLorem Ipsum is simply dummy text of the printing and  dummy text of the printing and"
 }
 
