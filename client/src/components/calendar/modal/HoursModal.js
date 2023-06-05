@@ -1,39 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Modal from "react-modal";
 import dayjs from "dayjs"
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Box, Button, TextField, Typography } from '@mui/material';
-import TextareaAutosize from "@mui/base/TextareaAutosize";
 import "./modal.css"
 import { Textarea } from '@mui/joy'
-import { TimeGrid } from 'react-big-calendar';
 
 const HoursModal = ({ isOpen, setIsOpen , slot, event, start, end}) => {
 	//Modal-FORM FUNCTION FOR CREATE AND EDIT EVENT
 	// Add a state for the modal
 	const [report, setReport] = useState("");
-	useEffect(() => {
-		console.log({ slot, event, start, end });
-	}, [slot, event, start, end])
+
 	const handleCancel = () => {
 		setIsOpen(false); // Close the modal
-		console.log({ slot, event, start, end });
+
 	};
 	const handleSave = () => {
-		console.log({ start, end, report })
+
 		setReport("")
 	}
-	//ON SELECT EVENT HANDLER FUNCTION
-	const onSelecLocalizationProvidertEventHandler = (slotInfo) => {
-		console.log("Select event handeler: ", slotInfo);
-	};
 
-	//HANDLE FUNCITON ON SELECT EVENT SLOT
-	const onSelectEventSlotHandler = (slotInfo) => {
-		console.log("Select event slot handler: ", slotInfo);
-	};
 	
 	return (
 		<Modal

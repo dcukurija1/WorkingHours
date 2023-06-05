@@ -1,0 +1,9 @@
+#addModal, .ReactModal__Content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: fit-content !important;
+	height: fit-content;
+	transform: translate(10%,10%);
+}

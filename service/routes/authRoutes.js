@@ -6,10 +6,7 @@ const { loginValidationRules, validateLogin } = require("../middlewares/loginVal
 const { registerValidationRules, validateRegister } = require("../middlewares/registerValidator");
 const pool = require("../db/database");
 
-router.get('/', async (req, res) => {
-	console.log("was here")
-	res.send("was here");
-})
+
 // REGISTER
 router.post(
 	"/register",
@@ -17,19 +14,19 @@ router.post(
 	validateRegister,
 	async (req, res) => {
 		const { email, password, name } = req.body
-		console.log("here");
+
 		const salt = bcrypt.genSaltSync(10);
 		const hashedPassword = bcrypt.hashSync(password, salt);
-		console.log("here2");
+
 		try {
 			const userId = await pool.query("INSERT INTO users(email, password, name) VALUES($1,$2,$3) RETURNING users.id",
 				[email, hashedPassword, name])
-			console.log("here3");
+
 			const token = jwt.sign({ userId, email }, "secret", { expiresIn: "1hr" });
 			res.json({userId, email, name, token });
-			console.log("here4");
+	
 		} catch (err) {
-			console.log(err)
+
 			res.status(500).json({ "Message": err });
 		}
 	}

@@ -1,9 +1,8 @@
 CREATE TABLE hours_event (
 	id SERIAL PRIMARY KEY,
 	user_id INT,
-	title VARCHAR(50)
-	start TIMESTAMP,
-	end TIMESTAMP
+	date TIMESTAMP,
+	duration FLOAT, 
 	report VARCHAR(3000)
 );
 

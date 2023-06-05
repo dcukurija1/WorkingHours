@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Home from './pages/Home';
-import dayjs from 'dayjs';
 import Auth from './pages/Auth';
 import { useCookies } from "react-cookie";
 import { Alert } from '@mui/material';
+import { gridColumnGroupsLookupSelector } from '@mui/x-data-grid';
 
 
 const App = () => {
-	const [cookies, setCookie, removeCookie] = useCookies(null);
+	const [cookies] = useCookies(null);
 	const authToken = cookies.AuthToken;
 	const userEmail = cookies.Email;
 	const userId = cookies.UserId;
@@ -18,34 +18,71 @@ const App = () => {
 	const getHours = async () => {
 		try {
 			
-			const res = await fetch('http://localhost:5000/hours/14'/*+userId.toString()*/)
+			const res = await fetch('http://localhost:5000/hours/'+userId)
 			const data = await res.json();
-			data.map(v => {
-				const newValue = {title: v.title || "Title", start: new Date(v.start_time), end: new Date(v.end_time), report: v.report}
-				console.log("getHours: ",{newValue})
-				setHours([...hours, newValue])
-			})
-			// throw new Error("something") 
+			console.log({ data })
+			setHours(data)
 		} catch (err) {
-
 			setError(err.message)
 		}
-	} 
+	}
+	const addHours = async (body) => {
+		console.log({ body })
+		try {
+			const res = await fetch("http://localhost:5000/hours/" + userId, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					"date": body.date,
+					"duration": body.duration,
+					"report": body.report,
+				}),
+			});
+			getHours()
+		} catch (err) {
+			setError(err.message)
+		}
+	}
+	const deleteHour = async (id) => {
+		console.log("uso")
+		try {
+			const res = await fetch('http://localhost:5000/hours/' + id,
+				{
+					method: 'DELETE',
+					mode: 'cors'
+				}
+			);
+			if (res.error) {
+				setError(res.error)
+				return
+			}
+			getHours()
+		} catch (err) {
+			setError(err.message)
+		}
+	}
 
+	const viewHour = () => {
+		console.log("view");
+	} 
 	useEffect(() => {
 		getHours()
-		console.log("useEffect", {hours})
 	},[])
 	return (
 		<div className="app">
 			{error && (
-				<Alert color="error" severity="error" variant='filled'>
+				<Alert color="warning" severity="warning" variant='filled' sx={{width: "fit-content", mt:8}}>
 					{error}
 				</Alert>
 			)}
-			{!authToken && <Auth />}
+			{!authToken && <Auth setError={setError} />}
 			{authToken && (
-				<Home user={{ userId, userEmail, userName }} hours={hours} />
+				<Home user={{ userId, userEmail, userName }}
+					hours={hours}
+					handleDelete={deleteHour}
+					handleView={viewHour}
+					handleAdd={addHours}
+				/>
 			)}
 		</div>
 	);
