@@ -1,0 +1,7 @@
+
+/* .MuiDataGrid-filterFormValueInput {
+	width: min-content !important;
+} */
+.css-1h08ml-MuiFormControl-root-MuiDataGrid-filterFormValueInput{
+	width: max-content !important;
+}

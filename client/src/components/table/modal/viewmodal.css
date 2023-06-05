@@ -1,0 +1,5 @@
+#viewModal, .ReactModal__Content {
+	position: absolute;
+	width: 30% !important;
+	height: fit-content;
+}
