@@ -19,11 +19,15 @@ router.post(
 		const hashedPassword = bcrypt.hashSync(password, salt);
 
 		try {
-			const userId = await pool.query("INSERT INTO users(email, password, name) VALUES($1,$2,$3) RETURNING users.id",
+			// it doesnt return id
+			const response = await pool.query("INSERT INTO users(email, password, name) VALUES($1,$2,$3) RETURNING users.id",
 				[email, hashedPassword, name])
-
-			const token = jwt.sign({ userId, email }, "secret", { expiresIn: "1hr" });
-			res.json({userId, email, name, token });
+			const user = await pool.query("SELECT * FROM users WHERE email = $1", [
+				email,
+			]);
+			const id = user.rows[0].id;
+			const token = jwt.sign({ id, email }, "secret", { expiresIn: "1hr" });
+			res.json({id, email, name, token });
 	
 		} catch (err) {
 
