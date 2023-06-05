@@ -7,7 +7,7 @@ import AddModal from '../components/table/modal/AddModal'
 import { Box, Button, Typography } from '@mui/material';
 
 
-const Home = ({ user, hours, handleView, handleDelete, handleAdd }) => {
+const Home = ({ user, hours, handleDelete, handleAdd }) => {
 	const [cookies, setCookie, removeCookie] = useCookies(null);
 	const [tableView, setTableView] = useState(true);
 	const [isOpen, setIsOpen] = useState(false);
@@ -67,7 +67,7 @@ const Home = ({ user, hours, handleView, handleDelete, handleAdd }) => {
 				Add +
 			</Button>
 			{isOpen && <AddModal isOpen={isOpen} setIsOpen={setIsOpen} handleAdd={handleAdd} />}
-			{tableView && !isOpen && <WorkingHoursTable hours={hours} handleView={handleView} handleDelete={handleDelete} />}
+			{tableView && !isOpen && <WorkingHoursTable hours={hours}  handleDelete={handleDelete} />}
 			{ !tableView && !isOpen && <WorkingHoursCalendar hours={hours} /> }
 		</Box>
 	);

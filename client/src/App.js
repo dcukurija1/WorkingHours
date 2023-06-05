@@ -4,6 +4,7 @@ import Auth from './pages/Auth';
 import { useCookies } from "react-cookie";
 import { Alert } from '@mui/material';
 import { gridColumnGroupsLookupSelector } from '@mui/x-data-grid';
+import post from './axios/post';
 
 
 const App = () => {
@@ -27,17 +28,9 @@ const App = () => {
 		}
 	}
 	const addHours = async (body) => {
-		console.log({ body })
 		try {
-			const res = await fetch("http://localhost:5000/hours/" + userId, {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({
-					"date": body.date,
-					"duration": body.duration,
-					"report": body.report,
-				}),
-			});
+			const res = await post("hours/" + userId, body)
+			console.log(res)
 			getHours()
 		} catch (err) {
 			setError(err.message)
@@ -61,12 +54,10 @@ const App = () => {
 			setError(err.message)
 		}
 	}
-
-	const viewHour = () => {
-		console.log("view");
-	} 
 	useEffect(() => {
-		getHours()
+		if (authToken) {
+			getHours()
+		}
 	},[])
 	return (
 		<div className="app">
@@ -80,7 +71,6 @@ const App = () => {
 				<Home user={{ userId, userEmail, userName }}
 					hours={hours}
 					handleDelete={deleteHour}
-					handleView={viewHour}
 					handleAdd={addHours}
 				/>
 			)}
