@@ -4,10 +4,8 @@ const createUniqueStructure = (arr) => {
 
 	// Prebroji pojavljivanja vrijednosti i popuni count objekt
 	// n intaracija
-	let id = 0;
 	arr.forEach((obj) => {
 		const value = obj.value;
-		if(obj.key)  
 		if (count[value]) {
 			count[value]++;
 		} else {
