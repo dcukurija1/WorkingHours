@@ -22,7 +22,7 @@ const WorkingHoursCalendar = ({ hours }) => {
 				events={hours}
 				style={{
 					height: "100vh",
-					width: "90%",
+					width: "100%",
 					display: "flex",
 					justifyContent: "center",
 					opacity: isOpen ? 0.7 : 1

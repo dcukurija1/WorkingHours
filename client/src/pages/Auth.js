@@ -3,7 +3,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
-
+import post from '../axios/post'
 
 const Auth = ({setError}) => {
 	const [cookies, setCookie, removeCookie] = useCookies(null);
@@ -28,35 +28,23 @@ const Auth = ({setError}) => {
 		try {
 			let body
 			if (endpoint === 'login') {
-				body = JSON.stringify({email, password})
+				body = {email, password}
 			} else {
-				body = JSON.stringify({
-					"email": email,
-					"password": password,
-					"passwordConfirmation": confirmPassword,
-					"name": fullName,
-				})
+				body = { email: email, password: password, passwordConfirmation: confirmPassword ,name: fullName }
 			}
-			const response = await fetch('http://localhost:5000/auth/' + endpoint,
-				{
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: body,
-				}
-			);
-			const data = await response.json();
-			console.log(data)
-			if (data?.errors) {
+			console.log({body})
+			const response = await post('auth/' + endpoint,body);
+			console.log(response.data)
+			if (response.data?.errors) {
 				isLogIn ? 
 					setError("Wrong email or password")
 				: setError("Email not valid")
 				return
 			} else {
-				console.log({data})
-				setCookie("Email", data.email)
-				setCookie("AuthToken", data.token)
-				setCookie("UserId", data.id)
-				setCookie("UserName", data.name)
+				setCookie("Email", response.data.email);
+				setCookie("AuthToken", response.data.token);
+				setCookie("UserId", response.data.id);
+				setCookie("UserName", response.data.name);
 				setError(null)
 				// window.location.reload();
 			}

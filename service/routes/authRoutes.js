@@ -20,8 +20,9 @@ router.post(
 
 		try {
 			// it doesnt return id
-			const response = await pool.query("INSERT INTO users(email, password, name) VALUES($1,$2,$3) RETURNING users.id",
+			const response = await pool.query("INSERT INTO users(email, password, name) VALUES($1,$2,$3) RETURNING id",
 				[email, hashedPassword, name])
+			console.log(response)
 			const user = await pool.query("SELECT * FROM users WHERE email = $1", [
 				email,
 			]);

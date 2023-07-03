@@ -13,10 +13,11 @@ const Home = ({ user, hours, handleDelete, handleAdd }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	
 	const signOut = () => {
-			console.log("signout");
-			removeCookie("Email");
-			removeCookie("AuthToken");
-			window.location.reload();
+		removeCookie("Email");
+		removeCookie("AuthToken");
+		removeCookie("UserId");
+		removeCookie("UserName")
+		window.location.reload();
 	};
 	return (
 		<Box
