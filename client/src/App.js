@@ -5,8 +5,8 @@ import { useCookies } from "react-cookie";
 import { Alert } from '@mui/material';
 import { gridColumnGroupsLookupSelector } from '@mui/x-data-grid';
 import post from './axios/post';
-
-
+import get from './axios/get'
+import deleteAxios from "./axios/delete";
 const App = () => {
 	const [cookies] = useCookies(null);
 	const authToken = cookies.AuthToken;
@@ -19,10 +19,8 @@ const App = () => {
 	const getHours = async () => {
 		try {
 			
-			const res = await fetch('http://localhost:5000/hours/'+userId)
-			const data = await res.json();
-			console.log({ data })
-			setHours(data)
+			const res = await get('hours/'+userId)
+			setHours(res.data)
 		} catch (err) {
 			setError(err.message)
 		}
@@ -30,21 +28,14 @@ const App = () => {
 	const addHours = async (body) => {
 		try {
 			const res = await post("hours/" + userId, body)
-			console.log(res)
 			getHours()
 		} catch (err) {
 			setError(err.message)
 		}
 	}
 	const deleteHour = async (id) => {
-		console.log("uso")
 		try {
-			const res = await fetch('http://localhost:5000/hours/' + id,
-				{
-					method: 'DELETE',
-					mode: 'cors'
-				}
-			);
+			const res = await deleteAxios('hours/' + id);
 			if (res.error) {
 				setError(res.error)
 				return
